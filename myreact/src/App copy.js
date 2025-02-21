@@ -7,9 +7,7 @@ function App() {
   const [users, setUsers] = useState([]);
   console.log(users);
   useEffect(() => {
-    const apiUrl = "https://nest-react-alpha.onrender.com/api/users";
-    console.log('Fetching from:', apiUrl); // Check the logged URL
-    fetch(apiUrl)
+    fetch("http://localhost:5000/api/users") // Ensure full URL if CORS applies
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -19,7 +17,6 @@ function App() {
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
-  
   
 
   return (
