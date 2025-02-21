@@ -1,12 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
-@Controller()
+@Controller('api') // Group under /api
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
+  @Get('users') // Correct endpoint path
   getUsers() {
-    return [ { id: 1, name: 'a' } ];
+    return [{ id: 1, name: 'a' }];
   }
 }

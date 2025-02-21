@@ -1,17 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function App() {
   const [users, setUsers] = useState([]);
-
+  console.log(users);
   useEffect(() => {
-    fetch("http://localhost:5000") // Adjust the URL if your NestJS app runs on another port
-      .then((response) => response.json())
+    fetch("http://localhost:5000/api/users") // Ensure full URL if CORS applies
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
+  
 
   return (
     <div>
@@ -26,5 +32,3 @@ function App() {
 }
 
 export default App;
-
-
