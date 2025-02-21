@@ -7,7 +7,7 @@ function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000") // Adjust the URL if your NestJS app runs on another port
+    fetch("https://nest-react-alpha.onrender.com") // Adjust the URL if your NestJS app runs on another port
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
