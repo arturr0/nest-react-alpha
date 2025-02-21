@@ -1,24 +1,18 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config'; // Import ConfigService
-import * as express from 'express';
+import { AppController } from './app.controller';
+import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule } from '@nestjs/config'; // Import ConfigModule
 import * as path from 'path';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  // Inject ConfigService
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT') || 5000;
-
-  app.enableCors({
-    origin: 'https://your-react-app.onrender.com', // Replace with your React app's URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
-  });
-
-  app.use('/static', express.static(path.join(__dirname, '..', 'myreact', 'build', 'static')));
-
-  await app.listen(port);
-}
-bootstrap();
+@Module({
+  imports: [
+    ConfigModule.forRoot(), // Add this to initialize the config service
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'myreact', 'build'),
+      serveRoot: '/', // Serve React build at the root
+      exclude: ['/api*'], // Make sure API routes work
+    }),
+  ],
+  controllers: [AppController],
+})
+export class AppModule {}
