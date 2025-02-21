@@ -1,4 +1,4 @@
-import { AppController } from './app.controller'; // Make sure this path is correct
+import { AppController } from './app.controller';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config'; // Import ConfigModule
