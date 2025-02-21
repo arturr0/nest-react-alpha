@@ -9,6 +9,6 @@ async function bootstrap() {
   // Manually serve static files
   app.use('/static', express.static(path.join(__dirname, '..', 'myreact', 'build', 'static')));
 
-  await app.listen(5000);
+  await app.listen(process.env.PORT ?? 5000);
 }
 bootstrap();
