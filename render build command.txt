@@ -1,0 +1,1 @@
+cd myreact && npm install && npm run build && cd ..
